@@ -1,4 +1,4 @@
-//@ts-self-types="../type/ticket.d.ts"
+// @ts-self-types="../type/ticket.d.ts"
 import { Uint16, Uint24, Uint32, Struct } from "./dep.ts";
 import { Constrained, Extension, HandshakeType } from "./dep.ts";
 
