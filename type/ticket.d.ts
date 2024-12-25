@@ -5,11 +5,6 @@ import { Extension } from "@tls/enum";
  * Represents a NewSessionTicket structure used in handshake processes.
  */
 export class NewSessionTicket extends Struct {
-  ticket_lifetime: Uint32;
-  ticket_age_add: Uint32;
-  ticket_nonce: TicketNonce;
-  ticket: Ticket;
-  extensions: Extensions;
 
   /**
    * Creates a NewSessionTicket instance from a handshake message.
@@ -40,6 +35,42 @@ export class NewSessionTicket extends Struct {
     ticket: Ticket,
     extensions: Extensions
   );
+
+  /**
+    * Creates a `TicketNonce` instance from opaque data.
+    * @param {Uint8Array} opaque - The opaque data for the ticket nonce.
+    * @returns {TicketNonce} The parsed `TicketNonce`.
+    */
+  static ticketNonce(opaque: Uint8Array): TicketNonce;
+
+  /**
+   * Creates a `Ticket` instance from opaque data.
+   * @param {Uint8Array} opaque - The opaque data for the ticket.
+   * @returns {Ticket} The parsed `Ticket`.
+   */
+  static ticket(opaque: Uint8Array): Ticket;
+
+  /**
+   * Creates an `Extensions` instance from multiple extensions.
+   * @param {...Extension[]} extensions - The extensions to include.
+   * @returns {Extensions} The parsed `Extensions`.
+   */
+  static extensions(...extensions: Extension[]): Extensions;
+
+  /** The ticket's lifetime in seconds. */
+  ticket_lifetime: Uint32;
+
+  /** The additional age value for the ticket. */
+  ticket_age_add: Uint32;
+
+  /** The ticket nonce. */
+  ticket_nonce: TicketNonce;
+
+  /** The ticket data. */
+  ticket: Ticket;
+
+  /** Additional ticket extensions. */
+  extensions: Extensions;
 }
 
 /**

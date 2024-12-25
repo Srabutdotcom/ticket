@@ -38,6 +38,9 @@ export class NewSessionTicket extends Struct {
       this.extensions = extensions
       return HandshakeType.NEW_SESSION_TICKET.handshake(this)
    }
+   static ticketNonce(opaque){ return new TicketNonce(opaque)};
+   static ticket(opaque){ return new Ticket(opaque)};
+   static extensions(...extensions) { return new Extensions(...extensions)}
 }
 
 class TicketNonce extends Constrained {
