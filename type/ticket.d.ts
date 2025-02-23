@@ -1,11 +1,11 @@
-import { Uint32, Struct, Constrained } from "@tls/struct";
-import { Extension } from "@tls/enum";
+import { Constrained, Struct, Uint32 } from "@tls/struct";
+import { Extension } from "../src/dep.ts";
+
 
 /**
  * Represents a NewSessionTicket structure used in handshake processes.
  */
 export class NewSessionTicket extends Struct {
-
   /**
    * Creates a NewSessionTicket instance from a handshake message.
    * @param handshake - The handshake Uint8Array data.
@@ -33,14 +33,14 @@ export class NewSessionTicket extends Struct {
     ticket_age_add: Uint32,
     ticket_nonce: TicketNonce,
     ticket: Ticket,
-    extensions: Extensions
+    extensions: Extensions,
   );
 
   /**
-    * Creates a `TicketNonce` instance from opaque data.
-    * @param {Uint8Array} opaque - The opaque data for the ticket nonce.
-    * @returns {TicketNonce} The parsed `TicketNonce`.
-    */
+   * Creates a `TicketNonce` instance from opaque data.
+   * @param {Uint8Array} opaque - The opaque data for the ticket nonce.
+   * @returns {TicketNonce} The parsed `TicketNonce`.
+   */
   static ticketNonce(opaque: Uint8Array): TicketNonce;
 
   /**
@@ -71,6 +71,7 @@ export class NewSessionTicket extends Struct {
 
   /** Additional ticket extensions. */
   extensions: Extensions;
+
 }
 
 /**

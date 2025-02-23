@@ -15,7 +15,9 @@ const data = HexaDecimal.fromString(
    04 00 00 04 00`
 ).byte;
 
-const newSessionTicket = NewSessionTicket.fromHandshake(data);
+const newSessionTicket = NewSessionTicket.from(data.slice(4));
+const byte = newSessionTicket.byte;
+const tlsInnerPlaintext = newSessionTicket.tlsInnerPlaintext()
 
 const _n = null;
 
