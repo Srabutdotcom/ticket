@@ -1,5 +1,44 @@
 import { ExtensionType, Uint32 } from "../src/dep.ts";
 
+/**
+ * Represents a TLS NewSessionTicket message as a `Uint8Array`.
+ * 
+ * The `NewSessionTicket` class encapsulates the session ticket structure 
+ * as defined in TLS 1.3. It provides methods to access various components 
+ * of the ticket, such as the lifetime, age addition, nonce, ticket data, 
+ * and extensions.
+ * 
+ * ## Structure:
+ * ```
+ * struct {
+ *   uint32 ticket_lifetime;
+ *   uint32 ticket_age_add;
+ *   opaque ticket_nonce<0..255>;
+ *   opaque ticket<1..2^16-1>;
+ *   Extension extensions<0..2^16-2>;
+ * } NewSessionTicket;
+ * ```
+ * 
+ * ## Usage:
+ * ```js
+ * const ticketData = new Uint8Array([...]); // Some raw session ticket data
+ * const ticket = NewSessionTicket.from(ticketData);
+ * 
+ * console.log(ticket.ticket_lifetime); // Access ticket lifetime
+ * console.log(ticket.ticket_nonce); // Access ticket nonce
+ * ```
+ * 
+ * ## Properties:
+ * - `ticket_lifetime` - The lifetime of the ticket in seconds.
+ * - `ticket_age_add` - A random value added to the ticket age.
+ * - `ticket_nonce` - A unique nonce for the session ticket.
+ * - `ticket` - The actual session ticket data.
+ * - `extensions` - Additional extensions for the session ticket.
+ * 
+ * ## Errors:
+ * - Throws an error if the ticket length is less than 1.
+ * - Throws an error if the extensions length exceeds `2^16 - 2`.
+ */
 export declare class NewSessionTicket extends Uint8Array {
   #ticket_lifetime;
   #ticket_age_add;
