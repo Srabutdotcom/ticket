@@ -1,7 +1,8 @@
 import { NewSessionTicket } from "../src/ticket.js";
-import { HexaDecimal } from "../src/dep.ts"
+import { Byte } from "@aicone/byte"
+import { ticketGen } from "../src/ticketgen.js";
 
-const data = HexaDecimal.fromString(
+const data = Byte.create(
    `04 00 00 c9 00 00 00 1e fa d6 aa
    c5 02 00 00 00 b2 2c 03 5d 82 93 59 ee 5f f7 af 4e c9 00 00 00
    00 26 2a 64 94 dc 48 6d 2c 8a 34 cb 33 fa 90 bf 1b 00 70 ad 3c
@@ -13,13 +14,15 @@ const data = HexaDecimal.fromString(
    17 64 6f ac 5c 03 27 2e 97 07 27 c6 21 a7 91 41 ef 5f 7d e6 50
    5e 5b fb c3 88 e9 33 43 69 40 93 93 4a e4 d3 57 00 08 00 2a 00
    04 00 00 04 00`
-).byte;
+)
 
 const newSessionTicket = NewSessionTicket.from(data.slice(4));
 const lifetime = newSessionTicket.ticket_lifetime;
 const ticket = newSessionTicket.ticket;
 const extensions = newSessionTicket.extensions;
 //const tlsInnerPlaintext = newSessionTicket.tlsInnerPlaintext()
+
+const ticket_gen = ticketGen();
 
 const _n = null;
 

@@ -1,141 +1,79 @@
-# NewSessionTicket Module
+# NewSessionTicket
 
-This module defines classes to handle NewSessionTicket structures in the context of a protocol like TLS. It provides parsing, construction, and serialization functionalities for NewSessionTicket and its associated components.
+## Overview
+The `NewSessionTicket` class extends `Uint8Array` and represents a TLS 1.3 New Session Ticket (NST). This class provides structured access to the different fields within the ticket, including the ticket lifetime, age add, nonce, and extensions.
 
-## Table of Contents
-
-1. [Classes](#classes)
-   - [NewSessionTicket](#newsessionticket)
-   - [TicketNonce](#ticketnonce)
-   - [Ticket](#ticket)
-   - [Extensions](#extensions)
-2. [Usage](#usage)
-3. [Dependencies](#dependencies)
-
----
-
-## Classes
-
-### NewSessionTicket
-
-The `NewSessionTicket` class represents a TLS `NewSessionTicket` message and provides parsing and construction methods.
-
-#### Static Methods
-
-- `fromHandshake(handshake: Uint8Array): NewSessionTicket`
-  Parses a handshake message to extract a `NewSessionTicket` instance.
-
-- `from(array: Uint8Array): NewSessionTicket`
-  Parses a byte array to extract a `NewSessionTicket` instance.
-
-#### Constructor
-
-```ts
-constructor(
-  ticket_lifetime: Uint32,
-  ticket_age_add: Uint32,
-  ticket_nonce: TicketNonce,
-  ticket: Ticket,
-  extensions: Extensions
-)
-```
-Initializes a `NewSessionTicket` with the given parameters.
-
-### TicketNonce
-
-The `TicketNonce` class represents a `ticket_nonce` value with constraints.
-
-#### Static Methods
-
-- `from(array: Uint8Array): TicketNonce`
-  Parses a byte array to extract a `TicketNonce` instance.
-
-#### Constructor
-
-```ts
-constructor(opaque: Uint8Array)
-```
-Initializes a `TicketNonce` instance.
-
-### Ticket
-
-The `Ticket` class represents a `ticket` value with constraints.
-
-#### Static Methods
-
-- `from(array: Uint8Array): Ticket`
-  Parses a byte array to extract a `Ticket` instance.
-
-#### Constructor
-
-```ts
-constructor(opaque: Uint8Array)
-```
-Initializes a `Ticket` instance.
-
-### Extensions
-
-The `Extensions` class represents a list of extensions in the `NewSessionTicket` structure.
-
-#### Static Methods
-
-- `from(array: Uint8Array): Extensions`
-  Parses a byte array to extract an `Extensions` instance.
-
-#### Constructor
-
-```ts
-constructor(...extensions: Extension[])
-```
-Initializes an `Extensions` instance with one or more extensions.
-
----
+## Installation
+This module is designed for use in JavaScript and Deno environments. Ensure you have the required dependencies before usage.
 
 ## Usage
 
-### Parsing a Handshake
-
-```ts
-import { NewSessionTicket } from './path';
-
-const handshake = new Uint8Array([...]);
-const newSessionTicket = NewSessionTicket.fromHandshake(handshake);
+### Importing the Class
+```javascript
+import { NewSessionTicket, ticketGen } from '@tls/ticket';
 ```
 
-### Creating a NewSessionTicket
-
-```ts
-import { NewSessionTicket, TicketNonce, Ticket, Extensions } from './path';
-
-const ticketLifetime = new Uint32(3600);
-const ticketAgeAdd = new Uint32(12345);
-const ticketNonce = new TicketNonce(new Uint8Array([1, 2, 3]));
-const ticket = new Ticket(new Uint8Array([4, 5, 6]));
-const extensions = new Extensions(/* pass extensions here */);
-
-const newSessionTicket = new NewSessionTicket(
-  ticketLifetime,
-  ticketAgeAdd,
-  ticketNonce,
-  ticket,
-  extensions
-);
+### Creating a New Session Ticket from an Array
+```javascript
+const rawTicketData = new Uint8Array([...]); // Replace with actual ticket data
+const ticket = NewSessionTicket.from(rawTicketData);
+console.log(ticket.ticket_lifetime.value); // Accessing ticket lifetime
 ```
 
-### Serializing
-
-```ts
-const serialized = newSessionTicket.byte; // Get the byte representation
+### Generating a New Session Ticket
+```javascript
+const ticket = ticketGen();
+console.log(ticket.ticket_nonce); // Accessing the ticket nonce
 ```
 
----
+## API Reference
 
-## Dependencies
+### Class: `NewSessionTicket`
+#### Static Methods
+- `NewSessionTicket.from(array: Uint8Array): NewSessionTicket`  
+  Creates an instance of `NewSessionTicket` from a given `Uint8Array`.
 
-This module depends on the following imports:
+#### Properties (Getters)
+- `ticket_lifetime: Uint32`  
+  Retrieves the lifetime of the ticket in seconds.
+- `ticket_age_add: Uint32`  
+  Retrieves a random 32-bit value used to obfuscate the ticket age.
+- `ticket_nonce: Uint8Array`  
+  Retrieves the nonce associated with the ticket.
+- `ticket: Uint8Array`  
+  Retrieves the actual session ticket.
+- `extensions: Uint8Array[]`  
+  Retrieves the extensions associated with the ticket.
 
-- `Uint16`, `Uint24`, `Uint32`, `Struct` from `./dep.ts`
-- `Constrained`, `Extension`, `HandshakeType` from `./dep.ts`
+### Function: `ticketGen`
+#### Description
+Generates a new TLS 1.3 session ticket with default or provided values.
 
-Ensure that these dependencies are available and properly implemented in your environment.
+#### Parameters
+- `option` (optional):
+  - `ticket_lifetime: Uint32` (default: 604800) - The ticket lifetime in seconds.
+  - `ticket_age_add: Uint32` (random) - A random 32-bit value.
+  - `ticket_nonce: Uint8Array` (default: [0, 0]) - The ticket nonce.
+  - `ticket: Uint8Array` (default: random 32-byte array) - The session ticket.
+  - `extensions: Uint8Array[]` (default: []) - An array of ticket extensions.
 
+#### Returns
+`NewSessionTicket` - A new instance containing the serialized session ticket data.
+
+#### Example
+```javascript
+const generatedTicket = ticketGen({
+   ticket_lifetime: Uint32.fromValue(7200),
+   ticket_nonce: Uint8Array.of(1, 2, 3)
+});
+console.log(generatedTicket.ticket);
+```
+
+### Donation
+
+- https://paypal.me/aiconeid
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
+for details.
