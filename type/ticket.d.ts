@@ -38,7 +38,7 @@ import { ExtensionType, Uint32 } from "../src/dep.ts";
  * ## Errors:
  * - Throws an error if the ticket length is less than 1.
  * - Throws an error if the extensions length exceeds `2^16 - 2`.
- * @version __VERSION__
+ * @version 0.0.8
  */
 export declare class NewSessionTicket extends Uint8Array {
   #ticket_lifetime;
