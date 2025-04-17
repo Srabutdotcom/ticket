@@ -2,7 +2,7 @@ import { NewSessionTicket } from "../src/ticket.js";
 import { Byte } from "@aicone/byte"
 import { ticketGen } from "../src/ticketgen.js";
 
-const data = Byte.create(
+const data = Byte.fromHex(
    `04 00 00 c9 00 00 00 1e fa d6 aa
    c5 02 00 00 00 b2 2c 03 5d 82 93 59 ee 5f f7 af 4e c9 00 00 00
    00 26 2a 64 94 dc 48 6d 2c 8a 34 cb 33 fa 90 bf 1b 00 70 ad 3c

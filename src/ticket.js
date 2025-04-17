@@ -1,5 +1,5 @@
 // @ts-self-types="../type/ticket.d.ts"
-import { Uint16, Uint32, ExtensionType, NamedGroupList, KeyShareClientHello, Versions, Supported_signature_algorithms, ServerNameList, PskKeyExchangeModes, Cookie, RecordSizeLimit, EarlyDataIndication, Padding, OfferedPsks } from "./dep.ts";
+import { Uint16, Uint32, ExtensionType, NamedGroupList, KeyShareClientHello, Versions, SignatureSchemeList, ServerNameList, PskKeyExchangeModes, Cookie, RecordSizeLimit, EarlyDataIndication, Padding, OfferedPsks } from "./dep.ts";
 import { Extension } from "./dep.ts";
 
 /* export class NewSessionTicket_0 extends Struct {
@@ -205,7 +205,7 @@ function parseExtension(extension) {
          extension.parser = Versions; break;
       }
       case ExtensionType.SIGNATURE_ALGORITHMS: {
-         extension.parser = Supported_signature_algorithms; break;
+         extension.parser = SignatureSchemeList; break;
       }
       case ExtensionType.SERVER_NAME: {
          extension.parser = extension.data.length ? ServerNameList : undefined; break;

@@ -9,6 +9,7 @@ import { Uint32 } from "../src/dep.ts";
  * @param {Uint8Array} [option.ticket] - The actual session ticket (default: random 32 bytes).
  * @param {Uint8Array[]} [option.extensions] - An array of extensions (default: empty array).
  * @returns {Uint8Array} - The serialized session ticket.
+ * @version __VERSION__
  */
 export declare function ticketGen(option?: {
    ticket_lifetime?: Uint32;     // The lifetime of the ticket in seconds

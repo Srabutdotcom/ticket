@@ -1,5 +1,5 @@
 // @ts-self-types="../type/ticketgen.d.ts"
-import { safeuint8array, Uint16, Uint32 } from "./dep.ts";
+import { unity, Uint16, Uint32 } from "./dep.ts";
 import { NewSessionTicket } from "./ticket.js";
 
 export function ticketGen(option = {
@@ -17,9 +17,9 @@ export function ticketGen(option = {
       extensions
    } = option
 
-   const extension_joined = safeuint8array(...extensions);
+   const extension_joined = unity(...extensions);
 
-   const array = safeuint8array(
+   const array = unity(
       ticket_lifetime,
       ticket_age_add,
       ticket_nonce.length,
