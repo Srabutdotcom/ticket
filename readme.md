@@ -1,4 +1,5 @@
 # NewSessionTicket
+@version 0.0.9
 
 ## Overview
 The `NewSessionTicket` class extends `Uint8Array` and represents a TLS 1.3 New Session Ticket (NST). This class provides structured access to the different fields within the ticket, including the ticket lifetime, age add, nonce, and extensions.

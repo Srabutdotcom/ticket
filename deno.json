@@ -1,26 +1,36 @@
 {
   "name": "@tls/ticket",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "license": "MIT",
   "exports": "./src/mod.ts",
   "publish": {
-    "exclude": ["dist/"]
+    "exclude": [
+      "dist/"
+    ]
   },
-  "tasks" : {
-    "lint" : "deno lint",
-    "test" : "deno test"
+  "tasks": {
+    "lint": "deno lint",
+    "test": "deno test"
   },
   "lint": {
-    "include": ["src/"],
-    "exclude": ["dist/"],
+    "include": [
+      "src/"
+    ],
+    "exclude": [
+      "dist/"
+    ],
     "rules": {
-      "exclude": ["no-var", "no-explicit-any", "no-slow-types"]
+      "exclude": [
+        "no-var",
+        "no-explicit-any",
+        "no-slow-types"
+      ]
     }
   },
   "imports": {
-    "@aicone/byte": "jsr:@aicone/byte@^0.8.4",
+    "@aicone/byte": "jsr:@aicone/byte@^0.8.6",
     "@std/assert": "jsr:@std/assert@^1.0.12",
-    "@tls/enum": "jsr:@tls/enum@^0.9.5",
-    "@tls/extension": "jsr:@tls/extension@^0.5.7"
+    "@tls/enum": "jsr:@tls/enum@^0.9.7",
+    "@tls/extension": "jsr:@tls/extension@^0.6.0"
   }
 }
